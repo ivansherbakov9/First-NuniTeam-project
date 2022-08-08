@@ -1,0 +1,15 @@
+D:\nuniteam\First-NuniTeam-project\bin\Debug\net6.0\First-NuniTeam-project.exe
+D:\nuniteam\First-NuniTeam-project\bin\Debug\net6.0\First-NuniTeam-project.deps.json
+D:\nuniteam\First-NuniTeam-project\bin\Debug\net6.0\First-NuniTeam-project.runtimeconfig.json
+D:\nuniteam\First-NuniTeam-project\bin\Debug\net6.0\First-NuniTeam-project.dll
+D:\nuniteam\First-NuniTeam-project\bin\Debug\net6.0\First-NuniTeam-project.pdb
+D:\nuniteam\First-NuniTeam-project\obj\Debug\net6.0\First-NuniTeam-project.csproj.AssemblyReference.cache
+D:\nuniteam\First-NuniTeam-project\obj\Debug\net6.0\First-NuniTeam-project.GeneratedMSBuildEditorConfig.editorconfig
+D:\nuniteam\First-NuniTeam-project\obj\Debug\net6.0\First-NuniTeam-project.AssemblyInfoInputs.cache
+D:\nuniteam\First-NuniTeam-project\obj\Debug\net6.0\First-NuniTeam-project.AssemblyInfo.cs
+D:\nuniteam\First-NuniTeam-project\obj\Debug\net6.0\First-NuniTeam-project.csproj.CoreCompileInputs.cache
+D:\nuniteam\First-NuniTeam-project\obj\Debug\net6.0\First-NuniTeam-project.dll
+D:\nuniteam\First-NuniTeam-project\obj\Debug\net6.0\refint\First-NuniTeam-project.dll
+D:\nuniteam\First-NuniTeam-project\obj\Debug\net6.0\First-NuniTeam-project.pdb
+D:\nuniteam\First-NuniTeam-project\obj\Debug\net6.0\First-NuniTeam-project.genruntimeconfig.cache
+D:\nuniteam\First-NuniTeam-project\obj\Debug\net6.0\ref\First-NuniTeam-project.dll

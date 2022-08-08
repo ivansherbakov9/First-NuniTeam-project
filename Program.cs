@@ -34,6 +34,7 @@ class Games
             {
                 rand2 = rnd.Next(0, 2);
             }
+            
             Console.ReadKey();
             if (Console.ReadKey().Key == ConsoleKey.D)
             {
