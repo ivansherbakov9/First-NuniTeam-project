@@ -1,90 +1,95 @@
 ﻿using System;
 
-class Games
+namespace NuniTeam
 {
-    
-    static void Main()
+    class Program
     {
-        string [,,] game = { { { "|", " ", "|", " ", "|" },
-                               { "|", " ", "|", " ", "|" },
-                               { "|", " ", "|", "█", "|" } } };
-
-        string[,,] game2 = { { { "|", " ", "|", " ", "|" },
-                               { "|", " ", "|", " ", "|" }, 
-                               { "|", "█", "|", " ", "|" } } };
-
-        string[,,] game3 = { { { "|", "$", "|", " ", "|" },
-                               { "|", " ", "|", " ", "|" },
-                               { "|", " ", "|", "█", "|" } } };
-
-        string[,,] game4 = { { { "|", " ", "|", "$", "|" },
-                               { "|", " ", "|", " ", "|" },
-                               { "|", "█", "|", " ", "|" } } };
-        int value = 1;
-        int rand;
-        int rand2;
-        Random rnd = new Random();
-
-        for(int i=0; i<game.GetLength(0);i++)
+        static void Main(string[] args)
         {
-            for(int j=0; j<game.GetLength(1); j++)
-            {
-                for(int k = 0; k < game.GetLength(2); k++)
-                {
-                    Console.Write(game[i, j, k] + " ");
-                    
-                }
-                Console.WriteLine();
-            }
+            Game game = new Game();
             
+            
+            game.Start();
+            while(Car.IsAlive)
+            {
+                game.Update();
+            }
+       
         }
-        while (true)
+    }
+
+    public class Road
+    {
+        public static string [] EmptyRoad = {"|"," ", " ", " ", "|", " ", " ", " ", "|"};
+        public static string [] RoadWithCarOnLeft= {"|"," ", "█", " ", "|", " ", " ", " ", "|"};
+        public static string [] RoadWithCarOnRight= {"|"," ", " ", " ", "|", " ", "█", " ", "|"};
+        public static string [] RoadWithDollarOnLeft = {"|"," ", "$", " ", "|", " ", " ", " ", "|"};
+        public static string [] RoadWithDollarOnRight = {"|"," ", " ", " ", "|", " ", "$", " ", "|"};
+        public static string [] RoadWithSpikeOnLeft = {"|"," ", "*", " ", "|", " ", " ", " ", "|"};
+        public static string [] RoadWithSpikeOnRight = {"|"," ", " ", " ", "|", " ", "*", " ", "|"};
+
+        public static string [,] FullEmptyRoad = {{"|"," ", " ", " ", "|", " ", " ", " ", "|"},{"|"," ", " ", " ", "|", " ", " ", " ", "|"},{"|"," ", " ", " ", "|", " ", " ", " ", "|"}};
+        public static void WriteEmptyRoad()
         {
-            rand = rnd.Next(0, 2);
-            if (rand == 1)
+            foreach(string i in FullEmptyRoad)
             {
-                rand2 = rnd.Next(0, 2);
+                Console.Write(i);
             }
-            
-            Console.ReadKey();
-            if (Console.ReadKey().Key == ConsoleKey.D)
+        }
+    }
+       
+    public class Game
+    {
+        Car car = new Car();
+        
+        public void Start()
+        {
+           //создание пустой дороги
+        }
+
+        public void Update()
+        {
+            // создание дороги
+            car.Move();
+        }
+    }
+
+    public class Car    
+    {
+        private int _speed;
+        private int _health = 100;
+        private int _dollar = 0;
+
+        public static bool IsAlive = true;
+
+        public void Move()
+        {
+            if(Console.ReadKey().Key == ConsoleKey.D)
             {
-                Console.Clear();
                 
-                for (int i = 0; i < game.GetLength(0); i++)
-                {
-                    for (int j = 0; j < game.GetLength(1); j++)
-                    {
-                        for (int k = 0; k < game.GetLength(2); k++)
-                        {
-                            Console.Write(game[i, j, k] + " ");
-
-                        }
-                        Console.WriteLine();
-                    }
-
-                }
+            } 
+            if(Console.ReadKey().Key == ConsoleKey.A)
+            {
+                
             }
-            else if (Console.ReadKey().Key == ConsoleKey.A)
+            if(Console.ReadKey().Key == ConsoleKey.Escape)
             {
-
-                Console.Clear();
-                for (int i = 0; i < game2.GetLength(0); i++)
-                {
-                    for (int j = 0; j < game2.GetLength(1); j++)
-                    {
-                        for (int k = 0; k < game2.GetLength(2); k++)
-                        {
-                            Console.Write(game2[i, j, k] + " ");
-
-                        }
-                        Console.WriteLine();
-                     }
-
-                }
-                
+                Death();
             }
         }
 
+        public void ApplyDamage(int DamageValue)
+        {
+            _health -= DamageValue;
+            if(_health <= 0)
+            {
+                Death();
+            }
+        }
+
+        public static void Death()
+        {
+            Car.IsAlive = false;
+        }
     }
 }
