@@ -20,15 +20,12 @@ namespace NuniTeam
 
     public class Road
     {
-        public static string [] EmptyRoad = {"|"," ", " ", " ", "|", " ", " ", " ", "|"};
-        public static string [] RoadWithCarOnLeft= {"|"," ", "█", " ", "|", " ", " ", " ", "|"};
-        public static string [] RoadWithCarOnRight= {"|"," ", " ", " ", "|", " ", "█", " ", "|"};
-        public static string [] RoadWithDollarOnLeft = {"|"," ", "$", " ", "|", " ", " ", " ", "|"};
-        public static string [] RoadWithDollarOnRight = {"|"," ", " ", " ", "|", " ", "$", " ", "|"};
-        public static string [] RoadWithSpikeOnLeft = {"|"," ", "*", " ", "|", " ", " ", " ", "|"};
-        public static string [] RoadWithSpikeOnRight = {"|"," ", " ", " ", "|", " ", "*", " ", "|"};
+        public static string Car = "█";
+        public static string Dollar = "$";
+        public static string Spike = "*";
+        public static string Empty = " ";
 
-        public static string [,] FullEmptyRoad = {{"|"," ", " ", " ", "|", " ", " ", " ", "|"},{"|"," ", " ", " ", "|", " ", " ", " ", "|"},{"|"," ", " ", " ", "|", " ", " ", " ", "|"}};
+        public static string [,] FullEmptyRoad = {{"|"," ", " ", " ", "|", " ", " ", " ", "|\n"},{"|"," ", " ", " ", "|", " ", " ", " ", "|\n"},{"|", " ", "█", " ", "|", " ", " ", " ", "|\n"}};
         public static void WriteEmptyRoad()
         {
             foreach(string i in FullEmptyRoad)
@@ -44,7 +41,7 @@ namespace NuniTeam
         
         public void Start()
         {
-           //создание пустой дороги
+           Road.WriteEmptyRoad();
         }
 
         public void Update()
@@ -64,12 +61,20 @@ namespace NuniTeam
 
         public void Move()
         {
-            if(Console.ReadKey().Key == ConsoleKey.D)
+            if((Console.ReadKey().Key == ConsoleKey.D) )
             {
+                Console.Clear();
+                Road.FullEmptyRoad[2,6] = Road.Car;
+                Road.FullEmptyRoad[2,2] = Road.Empty;
+                Road.WriteEmptyRoad();
                 
             } 
-            if(Console.ReadKey().Key == ConsoleKey.A)
+            if((Console.ReadKey().Key == ConsoleKey.A) )
             {
+                Console.Clear();
+                Road.FullEmptyRoad[2,2] = Road.Car;
+                Road.FullEmptyRoad[2,6] = Road.Empty;
+                Road.WriteEmptyRoad();
                 
             }
             if(Console.ReadKey().Key == ConsoleKey.Escape)
