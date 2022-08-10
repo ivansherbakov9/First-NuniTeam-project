@@ -3,23 +3,42 @@ using System.Threading;//Для поточного программирован�
 
 namespace NuniTeam
 {
-    class Program
+    public class Program
     {
+        
         static void Main(string[] args)
         {
+            
             Game game = new Game();
-            Thread Thread1 = new Thread(Car.Spawn);//новый поток
+            //Car game = new Game();
+            Thread Thread1 = new Thread(SpawnTime);//новый поток
             Thread1.Start();//запускаем его
             
-            game.Start();
+            
             while(Car.IsAlive)
             {
                 game.Update();
-                
+
             }
        
         }
+        public static void SpawnTime()
+        {
+            int spawnnum = 0;
+            while (true)
+            {
+                if(spawnnum >= 100)
+                {
+                    Car.Spawn();
+                    spawnnum = 0;
+                }    
+                else
+                    spawnnum++;
+            }        
+        }
     }
+
+    
 
     public class Road
     {
@@ -39,6 +58,7 @@ namespace NuniTeam
             }
             Console.Write("Всего монет:");
             Console.WriteLine(car951.GetDollars());//сколько монет
+            
             
         }
     }
@@ -70,11 +90,15 @@ namespace NuniTeam
         static int _dollar = 0;
         //------------------
         static int num;//будущий рандом
+        static int num2;
         static Random rnd = new Random();//рандом
 
         static public bool SpawnDollar = false;//спавнить ли сейчас доллар
         static public bool SpawnSpike = false;//спавнить ли сейчас колючку
-        static public bool SpawnItem = false;//спавнится ли сейчас предмет
+        static public bool SpawnLeft = false;
+        static public bool SpawnRight = false;
+
+        static public int roadROL;
         static public bool CarLeft = false;//машина слево
         static public bool CarRight = true;//машина справа
 
@@ -91,6 +115,7 @@ namespace NuniTeam
                 Road.WriteEmptyRoad();
                 CarLeft = false;//условия где машина
                 CarRight = true;//условия где машина
+                //Console.Clear();
                 
             } 
             if((Console.ReadKey().Key == ConsoleKey.A) )
@@ -101,12 +126,14 @@ namespace NuniTeam
                 Road.WriteEmptyRoad();
                 CarLeft = true;//условия где машина
                 CarRight = false;//условия где машина
+                //Console.Clear();
                 
             }
             if(Console.ReadKey().Key == ConsoleKey.Escape)
             {
                 Death();
             }
+            
         }
         public void ApplyDamage(int DamageValue)
         {
@@ -123,47 +150,120 @@ namespace NuniTeam
         public static void Spawn()
         {
             num = rnd.Next(0, 10);//рандом
-            if (num <= 5)//если 50 процентов
+            if (num <= 2)//если 50 процентов
             {
+                num2 = rnd.Next(0, 2);
+                if (num2 == 0)
+                {
+                    SpawnLeft = true;
+                    SpawnRight = false;
+                }
                 SpawnDollar = true;//спавним доллар
-                SpawnItem = true;
+                
                 SpawnSpike = false;
             }
             else
             {
                 SpawnDollar = false;//иначе нет
-                SpawnItem = false;
+                SpawnLeft = false;
+                SpawnRight = false;
                 SpawnSpike = false;
             }
 
-            Road.FullEmptyRoad[index,2] = Road.Dollar;//доллар вверху
-            if (SpawnDollar == true && SpawnItem == true)//мы спавним что то
+            if (SpawnDollar == true)//мы спавним что то
             {
-                
+                if(SpawnLeft)
+                    roadROL = 2;
+                    
+                else if (SpawnRight)   
+                    roadROL = 6; 
+        
                 while(true)//цикл перемещения
                 {
-                    index += 1;//индекс куда спавнить
-                    try//на всякий вдруг индекс зашкалит
+                    
+                    
+                    try
                     {
-                        if ((Road.FullEmptyRoad[1,2] == Road.Dollar) && (CarLeft == true))//там ли машина и доллар
+                        if ((Road.FullEmptyRoad[index,roadROL] == Road.Dollar) && (CarLeft == true) && (roadROL == 2))//там ли машина и доллар
                         {
                             Road.FullEmptyRoad[1,2] = Road.Empty;//очистка дороги
                             Road.FullEmptyRoad[2,2] = Road.Empty;//очистка дороги
-                            Thread.Sleep(500);
                             Road.FullEmptyRoad[0,2] = Road.Empty;//очистка дороги
                             _dollar += 1;//+монета
+                            SpawnDollar = false;//ничего не спавним
+                            roadROL = 0;
+                            SpawnLeft = false;
+                            SpawnRight = false;
+                            index = 0;
+                            break;//выход из цикла(то есть жизнь 1 предмета кончилась)
+                        }
+                        else if ((Road.FullEmptyRoad[index,roadROL] == Road.Dollar) && (CarRight == true) && (roadROL == 6))//там ли машина и доллар
+                        {
+                            Road.FullEmptyRoad[1,2] = Road.Empty;//очистка дороги
+                            Road.FullEmptyRoad[2,2] = Road.Empty;//очистка дороги
+                            Road.FullEmptyRoad[0,2] = Road.Empty;//очистка дороги
+                            _dollar += 1;//+монета
+                            SpawnDollar = false;//ничего не спавним
+                            roadROL = 0;
+                            SpawnLeft = false;
+                            SpawnRight = false;
+                            index = 0;
                             break;//выход из цикла(то есть жизнь 1 предмета кончилась)
                         }
                     }
                     catch
                     {
-                        Thread.Sleep(1);//а что мне нужно было сюда вставлять?)
+                        if ((SpawnLeft == true) && (CarLeft == true))
+                        {
+                            Road.FullEmptyRoad[1,2] = Road.Empty;//очистка дороги
+                            Road.FullEmptyRoad[2,2] = Road.Empty;//очистка дороги
+                            Road.FullEmptyRoad[0,2] = Road.Empty;//очистка дороги
+                            Road.FullEmptyRoad[1,6] = Road.Empty;//очистка дороги
+                            Road.FullEmptyRoad[2,6] = Road.Empty;//очистка дороги
+                            Road.FullEmptyRoad[0,6] = Road.Empty;//очистка дороги
+                            _dollar += 1;//+монета
+                            SpawnDollar = false;//ничего не спавним
+                            roadROL = 0;
+                            SpawnLeft = false;
+                            SpawnRight = false;
+                            index = 0;
+                            break;//выход из цикла(то есть жизнь 1 предмета кончилась)
+                        }
+                        else if ((SpawnRight == true) && (CarRight == true))
+                        {
+                            Road.FullEmptyRoad[1,2] = Road.Empty;//очистка дороги
+                            Road.FullEmptyRoad[2,2] = Road.Empty;//очистка дороги
+                            Road.FullEmptyRoad[0,2] = Road.Empty;//очистка дороги
+                            Road.FullEmptyRoad[1,6] = Road.Empty;//очистка дороги
+                            Road.FullEmptyRoad[2,6] = Road.Empty;//очистка дороги
+                            Road.FullEmptyRoad[0,6] = Road.Empty;//очистка дороги
+                            _dollar += 1;//+монета
+                            SpawnDollar = false;//ничего не спавним
+                            roadROL = 0;
+                            SpawnLeft = false;
+                            SpawnRight = false;
+                            index = 0;
+                            break;//выход из цикла(то есть жизнь 1 предмета кончилась)
+                        }
                     }    
-                    Road.FullEmptyRoad[1,2] = Road.Dollar;//спавним(да когда будем увеличивать дорогу придется поменять)
-                    Thread.Sleep(500);//задержка 500 милисекунд(0,5 сек)
+                    try
+                    {
+
+                    
+                        Road.FullEmptyRoad[index,roadROL] = Road.Dollar;
+                        index = index + 1;
+                        Road.FullEmptyRoad[index-1,roadROL] = Road.Dollar;
+                    }
+                    catch
+                    {
+                        continue;
+                    }    
+                    Thread.Sleep(500);
+                    
+                    
+
                 }    
-                SpawnDollar = false;//ничего не спавним
-                SpawnItem = false;//ничего не спавним
+
             }
         }
         public int GetDollars()//для надписи сколько монет
