@@ -9,10 +9,10 @@ namespace NuniTeam
     { 
         static void Main(string[] args)
         {
-           
+            Game.SelectDifficult();
+
             Thread ThreadSpawn = new Thread(Car.Spawn);
             ThreadSpawn.Start();
-            
             
             while(Car.IsAlive)
             {
@@ -21,24 +21,54 @@ namespace NuniTeam
             }
        
         }
+
+        
     }
     public static class Game
     {
         static Car car = new Car();
         public static void Update(){
-            
             car.Move();
         }
+
+        public static void SelectDifficult()
+        {
+            Console.WriteLine("Выберите уровень сложности: \n1.Легкий\n2.Средний\n3.Сложный");
+
+            int NumberDifficult;
+            string str = Console.ReadLine();
+            
+            while(!int.TryParse(str, out NumberDifficult))
+            {
+                Console.WriteLine("Вы не ввели уровень сложности, повторите снова!");
+                str = Console.ReadLine();
+            }
+
+            if(NumberDifficult == 1){
+                Car.Speed = 700;
+            }
+            else if(NumberDifficult == 2){
+                Car.Speed = 300;
+            }
+            else if(NumberDifficult == 3){
+                Car.Speed = 100;
+            }
+            
+        }
     }
-
-
     public class Car    
     {
 
         private static int _index = 0;
+        private static int _speed;
+        public static int Speed
+        {
+            set {_speed = value;}
+            get { return _speed;}
+        }
         private static int _health = 100;
         public int Health// Для надписи здоровья
-        {
+        { 
             get { return _health; }
         }
         private static int _dollar = 0;
@@ -47,11 +77,11 @@ namespace NuniTeam
             get { return _dollar; }
         }
         public static bool IsAlive = true;
-        static int RandomNumber;//будущий рандом
+        private static int _randomNumber;//будущий рандом
         static Random rnd = new Random();//рандом
        
-        static public int IndexRightRoadItem = 2;
-        static public int IndexLeftRoadItem = 6;
+        private static int _indexRightRoadItem = 2;
+        private static int _indexLeftRoadItem = 6;
         
 
         public void Move()
@@ -93,8 +123,8 @@ namespace NuniTeam
         {  
             for(int i = 0 ; i < 10 ; i++)
             {
-                RandomNumber = rnd.Next(1,3);// выбор спавна предмета 50\50
-                if(RandomNumber == 1)
+                _randomNumber = rnd.Next(1,3);// выбор спавна предмета 50\50
+                if(_randomNumber == 1)
                 {
                     Road.SpawnItem = Road.DollarOnRoad;
                 }
@@ -103,13 +133,13 @@ namespace NuniTeam
                     Road.SpawnItem = Road.SpikeOnRoad;
                 }
                 
-                RandomNumber = rnd.Next(1,3);// выбор дороги 50\50
-                if(RandomNumber == 1)
+                _randomNumber = rnd.Next(1,3);// выбор дороги 50\50
+                if(_randomNumber == 1)
                 {
                     for(;_index < 8;_index++)
                     {
-                        Road.FullEmptyRoad[_index, IndexLeftRoadItem] = Road.Empty;
-                        if((Road.FullEmptyRoad[_index + 1, IndexLeftRoadItem] == Road.Car))
+                        Road.FullEmptyRoad[_index, _indexLeftRoadItem] = Road.Empty;
+                        if((Road.FullEmptyRoad[_index + 1, _indexLeftRoadItem] == Road.Car))
                         {
                             if(Road.SpawnItem == Road.DollarOnRoad)
                             {
@@ -124,20 +154,20 @@ namespace NuniTeam
                         }
                         else
                         {
-                            Road.FullEmptyRoad[_index + 1, IndexLeftRoadItem] = Road.SpawnItem;
+                            Road.FullEmptyRoad[_index + 1, _indexLeftRoadItem] = Road.SpawnItem;
                         }
                         Road.ClearAndWriteEmpty();
-                        Thread.Sleep(500);
+                        Thread.Sleep(Car.Speed);
                     }
-                    Road.FullEmptyRoad[_index, IndexLeftRoadItem] = Road.Empty;
+                    Road.FullEmptyRoad[_index, _indexLeftRoadItem] = Road.Empty;
                     _index = 0;
                 }
                 else
                 {
                     for(;_index < 8;_index++)
                     {
-                        Road.FullEmptyRoad[_index, IndexRightRoadItem] = Road.Empty;
-                        if((Road.FullEmptyRoad[_index + 1, IndexRightRoadItem] == Road.Car))
+                        Road.FullEmptyRoad[_index, _indexRightRoadItem] = Road.Empty;
+                        if((Road.FullEmptyRoad[_index + 1, _indexRightRoadItem] == Road.Car))
                         {
                             if(Road.SpawnItem == Road.DollarOnRoad)
                             {
@@ -152,12 +182,12 @@ namespace NuniTeam
                         }
                         else
                         {
-                            Road.FullEmptyRoad[_index + 1, IndexRightRoadItem] = Road.SpawnItem;
+                            Road.FullEmptyRoad[_index + 1, _indexRightRoadItem] = Road.SpawnItem;
                         }
                         Road.ClearAndWriteEmpty();
-                        Thread.Sleep(500);
+                        Thread.Sleep(Car.Speed);
                     }
-                    Road.FullEmptyRoad[_index, IndexRightRoadItem] = Road.Empty;
+                    Road.FullEmptyRoad[_index, _indexRightRoadItem] = Road.Empty;
                     _index = 0;   
                 }
             }
@@ -199,6 +229,7 @@ namespace NuniTeam
                 Console.Clear();
                 Road.WriteEmptyRoad();  
             }
+            
         }
       
     }
