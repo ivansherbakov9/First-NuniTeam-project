@@ -47,7 +47,9 @@ namespace NuniTeam
             Console.WriteLine("██║░░██╗██║░░██║██║╚████║░╚═══██╗██║░░██║██║░░░░░██╔══╝░░  ██╔══██╗██╔══██║██║░░██╗██╔══╝░░ ");
             Console.WriteLine("╚█████╔╝╚█████╔╝██║░╚███║██████╔╝╚█████╔╝███████╗███████╗  ██║░░██║██║░░██║╚█████╔╝███████╗ ");
             Console.WriteLine("░╚════╝░░╚════╝░╚═╝░░╚══╝╚═════╝░░╚════╝░╚══════╝╚══════╝  ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░╚══════╝");
-            
+            Console.Beep();
+            Console.Beep();
+            Console.Beep();
             Thread.Sleep(3000);
             while (true)
             {
@@ -96,14 +98,14 @@ namespace NuniTeam
             {
                 if (indexM + 2 <= 8 )
                 {
+                    Console.Beep();
                     
                     
-                    //Thread.Sleep(500);
                     indexM = indexM + 2;
                     indexH = indexM - 2;
                     ListCars[1,indexM] = "^";
                     ListCars[1,indexH] = "_";
-                    //ListCars[1,indexM-2] = " ";
+                    
                     
                 }    
             }  
@@ -111,18 +113,18 @@ namespace NuniTeam
             {
                 if (indexM - 2 >= 0)
                 {
-                    //ListCars[1,indexM] = "_";
                     
-                    //Thread.Sleep(500);
+                    Console.Beep();
                     indexM = indexM - 2;
                     indexH = indexM + 2;
                     ListCars[1,indexM] = "^";
                     ListCars[1,indexH] = "_";
-                    //ListCars[1,indexM+2] = " ";
+                    
                 }
             }
             if (keyMenu.Key == ConsoleKey.Enter)
             {
+                Console.Beep();
                 if (ListCars[1,0] == "^")
                 {
                     Car1 = true;
@@ -217,12 +219,14 @@ namespace NuniTeam
             ConsoleKeyInfo key = Console.ReadKey();
             if((key.Key == ConsoleKey.D) )
             {
+                Console.Beep();
                 Road.FullEmptyRoad[8,6] = Road.Car;
                 Road.FullEmptyRoad[8,2] = Road.Empty;
                 Road.ClearAndWriteEmpty();
             } 
             if((key.Key == ConsoleKey.A) )
             {
+                Console.Beep();
                 Road.FullEmptyRoad[8,2] = Road.Car;
                 Road.FullEmptyRoad[8,6] = Road.Empty;
                 Road.ClearAndWriteEmpty();
