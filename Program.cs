@@ -7,8 +7,22 @@ namespace NuniTeam
 {
     class Program
     { 
+        
+        static public int indexM = 0;
+
+        static public bool Car1 = false;//#
+        static public bool Car2 = false;//&
+        static public bool Car3 = false;//%
+        static public bool Car4 = false;//@
+        static public bool Car5 = false;//default
+
+        
+        static public string [,] ListCars = {{"#", "/", "&", "/", "%", "/", "@", "/", "█\n"},
+                                                 {"^", "_", "_", "_", "_", "_", "_", "_", "_"}};
         static void Main(string[] args)
         {
+
+            StartGameMenu();
             Game.SelectDifficult();
 
             Thread ThreadSpawn = new Thread(Car.Spawn);
@@ -20,6 +34,120 @@ namespace NuniTeam
                    
             }
        
+        }
+        public static void StartGameMenu()
+        {
+            
+            
+
+            Console.WriteLine("░█████╗░░█████╗░███╗░░██╗░██████╗░█████╗░██╗░░░░░███████╗  ██████╗░░█████╗░░█████╗░███████╗");
+            Console.WriteLine("██╔══██╗██╔══██╗████╗░██║██╔════╝██╔══██╗██║░░░░░██╔════╝  ██╔══██╗██╔══██╗██╔══██╗██╔════╝ ");
+            Console.WriteLine("██║░░╚═╝██║░░██║██╔██╗██║╚█████╗░██║░░██║██║░░░░░█████╗░░  ██████╔╝███████║██║░░╚═╝█████╗░░ ");
+            Console.WriteLine("██║░░╚═╝██║░░██║██╔██╗██║╚█████╗░██║░░██║██║░░░░░█████╗░░  ██████╔╝███████║██║░░╚═╝█████╗░░ ");
+            Console.WriteLine("██║░░██╗██║░░██║██║╚████║░╚═══██╗██║░░██║██║░░░░░██╔══╝░░  ██╔══██╗██╔══██║██║░░██╗██╔══╝░░ ");
+            Console.WriteLine("╚█████╔╝╚█████╔╝██║░╚███║██████╔╝╚█████╔╝███████╗███████╗  ██║░░██║██║░░██║╚█████╔╝███████╗ ");
+            Console.WriteLine("░╚════╝░░╚════╝░╚═╝░░╚══╝╚═════╝░░╚════╝░╚══════╝╚══════╝  ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░╚══════╝");
+            
+            Thread.Sleep(3000);
+            while (true)
+            {
+                Cars();
+                if (Car1)
+                {
+                    break;
+                }
+                else if (Car2)
+                {
+                    break;
+                }
+                else if (Car3)
+                {
+                    break;
+                }
+                else if (Car4)
+                {
+                    break;
+                }
+                else if (Car5)
+                {
+                    break;
+                }
+            }
+        }
+        public static void Cars()
+        {
+            
+            int indexH = 0;
+
+
+            Console.Clear();
+            Console.WriteLine("Выбор машины:");
+            foreach(string j in ListCars)
+            {
+                Console.Write(j);
+
+                
+            }
+            Console.WriteLine("");
+            ConsoleKeyInfo keyMenu = Console.ReadKey();
+            ListCars[1,indexM] = "^";
+                
+            if(keyMenu.Key == ConsoleKey.D)
+            {
+                if (indexM + 2 <= 8 )
+                {
+                    
+                    
+                    //Thread.Sleep(500);
+                    indexM = indexM + 2;
+                    indexH = indexM - 2;
+                    ListCars[1,indexM] = "^";
+                    ListCars[1,indexH] = "_";
+                    //ListCars[1,indexM-2] = " ";
+                    
+                }    
+            }  
+            else if(keyMenu.Key == ConsoleKey.A)
+            {
+                if (indexM - 2 >= 0)
+                {
+                    //ListCars[1,indexM] = "_";
+                    
+                    //Thread.Sleep(500);
+                    indexM = indexM - 2;
+                    indexH = indexM + 2;
+                    ListCars[1,indexM] = "^";
+                    ListCars[1,indexH] = "_";
+                    //ListCars[1,indexM+2] = " ";
+                }
+            }
+            if (keyMenu.Key == ConsoleKey.Enter)
+            {
+                if (ListCars[1,0] == "^")
+                {
+                    Car1 = true;
+                    
+                }
+                else if (ListCars[1,2] == "^")
+                {
+                    Car2 = true;
+                }
+                else if (ListCars[1,4] == "^")
+                {
+                    Car3 = true;
+                }
+                else if (ListCars[1,6] == "^")
+                {
+                    Car4 = true;
+                }
+                else if (ListCars[1,8] == "^")
+                {
+                    Car5 = true;
+                    
+                    
+                }
+
+            }
         }
 
         
@@ -121,6 +249,22 @@ namespace NuniTeam
 
         public static void Spawn()
         {  
+            if(Program.Car1)
+            {
+                Road.Car = "#";
+            }
+            else if(Program.Car2)
+            {
+                Road.Car = "&";
+            }
+            else if(Program.Car3)
+            {
+                Road.Car = "%";
+            }
+            else if(Program.Car4)
+            {
+                Road.Car = "@";
+            }
             for(int i = 0 ; i < 10 ; i++)
             {
                 _randomNumber = rnd.Next(1,3);// выбор спавна предмета 50\50
@@ -197,6 +341,7 @@ namespace NuniTeam
 
         public class Road
         {
+            
             public static string Car = "█";
             public static string DollarOnRoad = "$";
             public static string SpikeOnRoad = "*";
@@ -213,9 +358,10 @@ namespace NuniTeam
                                                     {"|", " ", " ", " ", "|", " ", " ", " ", "|\n"},
                                                     {"|", " ", " ", " ", "|", " ", " ", " ", "|\n"},
                                                     {"|", " ", " ", " ", "|", " ", " ", " ", "|\n"},
-                                                    {"|", " ", "█", " ", "|", " ", " ", " ", "|\n"}};
+                                                    {"|", " ", "?", " ", "|", " ", " ", " ", "|\n"}};
             public static void WriteEmptyRoad()
             {
+
                 foreach(string i in FullEmptyRoad)
                 {
                     Console.Write(i);

@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Программы\\First-NuniTeam-project\\First-NuniTeam-project\\First-NuniTeam-project.csproj": {}
+    "D:\\nuniteam\\First-NuniTeam-project\\First-NuniTeam-project.csproj": {}
   },
   "projects": {
-    "C:\\Программы\\First-NuniTeam-project\\First-NuniTeam-project\\First-NuniTeam-project.csproj": {
+    "D:\\nuniteam\\First-NuniTeam-project\\First-NuniTeam-project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Программы\\First-NuniTeam-project\\First-NuniTeam-project\\First-NuniTeam-project.csproj",
+        "projectUniqueName": "D:\\nuniteam\\First-NuniTeam-project\\First-NuniTeam-project.csproj",
         "projectName": "First-NuniTeam-project",
-        "projectPath": "C:\\Программы\\First-NuniTeam-project\\First-NuniTeam-project\\First-NuniTeam-project.csproj",
-        "packagesPath": "C:\\Users\\DenisPC\\.nuget\\packages\\",
-        "outputPath": "C:\\Программы\\First-NuniTeam-project\\First-NuniTeam-project\\obj\\",
+        "projectPath": "D:\\nuniteam\\First-NuniTeam-project\\First-NuniTeam-project.csproj",
+        "packagesPath": "C:\\Users\\Пользователь\\.nuget\\packages\\",
+        "outputPath": "D:\\nuniteam\\First-NuniTeam-project\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\DenisPC\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Пользователь\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
