@@ -17,6 +17,8 @@ namespace NuniTeam
         static public bool Car5 = false;//default
 
         
+
+        
         static public string [,] ListCars = {{"#", "/", "&", "/", "%", "/", "@", "/", "█\n"},
                                                  {"^", "_", "_", "_", "_", "_", "_", "_", "_"}};
         static void Main(string[] args)
@@ -31,6 +33,7 @@ namespace NuniTeam
             while(Car.IsAlive)
             {
                 Game.Update();
+                
                    
             }
        
@@ -40,13 +43,13 @@ namespace NuniTeam
             
             
 
-            Console.WriteLine("░█████╗░░█████╗░███╗░░██╗░██████╗░█████╗░██╗░░░░░███████╗  ██████╗░░█████╗░░█████╗░███████╗");
-            Console.WriteLine("██╔══██╗██╔══██╗████╗░██║██╔════╝██╔══██╗██║░░░░░██╔════╝  ██╔══██╗██╔══██╗██╔══██╗██╔════╝ ");
-            Console.WriteLine("██║░░╚═╝██║░░██║██╔██╗██║╚█████╗░██║░░██║██║░░░░░█████╗░░  ██████╔╝███████║██║░░╚═╝█████╗░░ ");
-            Console.WriteLine("██║░░╚═╝██║░░██║██╔██╗██║╚█████╗░██║░░██║██║░░░░░█████╗░░  ██████╔╝███████║██║░░╚═╝█████╗░░ ");
-            Console.WriteLine("██║░░██╗██║░░██║██║╚████║░╚═══██╗██║░░██║██║░░░░░██╔══╝░░  ██╔══██╗██╔══██║██║░░██╗██╔══╝░░ ");
-            Console.WriteLine("╚█████╔╝╚█████╔╝██║░╚███║██████╔╝╚█████╔╝███████╗███████╗  ██║░░██║██║░░██║╚█████╔╝███████╗ ");
-            Console.WriteLine("░╚════╝░░╚════╝░╚═╝░░╚══╝╚═════╝░░╚════╝░╚══════╝╚══════╝  ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░╚══════╝");
+            Console.WriteLine("\t\t\t░█████╗░░█████╗░███╗░░██╗░██████╗░█████╗░██╗░░░░░███████╗  ██████╗░░█████╗░░█████╗░███████╗");
+            Console.WriteLine("\t\t\t██╔══██╗██╔══██╗████╗░██║██╔════╝██╔══██╗██║░░░░░██╔════╝  ██╔══██╗██╔══██╗██╔══██╗██╔════╝ ");
+            Console.WriteLine("\t\t\t██║░░╚═╝██║░░██║██╔██╗██║╚█████╗░██║░░██║██║░░░░░█████╗░░  ██████╔╝███████║██║░░╚═╝█████╗░░ ");
+            Console.WriteLine("\t\t\t██║░░╚═╝██║░░██║██╔██╗██║╚█████╗░██║░░██║██║░░░░░█████╗░░  ██████╔╝███████║██║░░╚═╝█████╗░░ ");
+            Console.WriteLine("\t\t\t██║░░██╗██║░░██║██║╚████║░╚═══██╗██║░░██║██║░░░░░██╔══╝░░  ██╔══██╗██╔══██║██║░░██╗██╔══╝░░ ");
+            Console.WriteLine("\t\t\t╚█████╔╝╚█████╔╝██║░╚███║██████╔╝╚█████╔╝███████╗███████╗  ██║░░██║██║░░██║╚█████╔╝███████╗ ");
+            Console.WriteLine("\t\t\t░╚════╝░░╚════╝░╚═╝░░╚══╝╚═════╝░░╚════╝░╚══════╝╚══════╝  ╚═╝░░╚═╝╚═╝░░╚═╝░╚════╝░╚══════╝");
             Console.Beep();
             Console.Beep();
             Console.Beep();
@@ -83,7 +86,7 @@ namespace NuniTeam
 
 
             Console.Clear();
-            Console.WriteLine("Выбор машины:");
+            Console.WriteLine("\t\t\t\t\t\t\t\t\tВыбор машины:");
             foreach(string j in ListCars)
             {
                 Console.Write(j);
@@ -94,7 +97,7 @@ namespace NuniTeam
             ConsoleKeyInfo keyMenu = Console.ReadKey();
             ListCars[1,indexM] = "^";
                 
-            if(keyMenu.Key == ConsoleKey.D)
+            if(keyMenu.Key == ConsoleKey.RightArrow)
             {
                 if (indexM + 2 <= 8 )
                 {
@@ -109,7 +112,7 @@ namespace NuniTeam
                     
                 }    
             }  
-            else if(keyMenu.Key == ConsoleKey.A)
+            else if(keyMenu.Key == ConsoleKey.LeftArrow)
             {
                 if (indexM - 2 >= 0)
                 {
@@ -190,7 +193,7 @@ namespace NuniTeam
     {
 
         private static int _index = 0;
-        private static int _speed;
+        public static int _speed;
         public static int Speed
         {
             set {_speed = value;}
@@ -217,14 +220,14 @@ namespace NuniTeam
         public void Move()
         {
             ConsoleKeyInfo key = Console.ReadKey();
-            if((key.Key == ConsoleKey.D) )
+            if((key.Key == ConsoleKey.RightArrow) )
             {
                 Console.Beep();
                 Road.FullEmptyRoad[8,6] = Road.Car;
                 Road.FullEmptyRoad[8,2] = Road.Empty;
                 Road.ClearAndWriteEmpty();
             } 
-            if((key.Key == ConsoleKey.A) )
+            if((key.Key == ConsoleKey.LeftArrow) )
             {
                 Console.Beep();
                 Road.FullEmptyRoad[8,2] = Road.Car;
@@ -248,11 +251,13 @@ namespace NuniTeam
         {
             Car.IsAlive = false;
             Console.Clear();
-            Console.WriteLine($"GameOver\nтвой счет : {_dollar}");
+            Console.WriteLine($"GameOver\nTвой счет : {_dollar}");
         }
 
         public static void Spawn()
         {  
+
+
             if(Program.Car1)
             {
                 Road.Car = "#";
@@ -269,8 +274,10 @@ namespace NuniTeam
             {
                 Road.Car = "@";
             }
-            for(int i = 0 ; i < 10 ; i++)
+            //for(int i = 0 ; i < 10 ; i++)
+            do
             {
+                
                 _randomNumber = rnd.Next(1,3);// выбор спавна предмета 50\50
                 if(_randomNumber == 1)
                 {
@@ -286,8 +293,9 @@ namespace NuniTeam
                 {
                     for(;_index < 8;_index++)
                     {
+
                         Road.FullEmptyRoad[_index, _indexLeftRoadItem] = Road.Empty;
-                        if((Road.FullEmptyRoad[_index + 1, _indexLeftRoadItem] == Road.Car))
+                        if((Road.FullEmptyRoad[_index + 1, _indexLeftRoadItem] == Road.Car) && (Car.IsAlive))
                         {
                             if(Road.SpawnItem == Road.DollarOnRoad)
                             {
@@ -302,9 +310,11 @@ namespace NuniTeam
                         }
                         else
                         {
-                            Road.FullEmptyRoad[_index + 1, _indexLeftRoadItem] = Road.SpawnItem;
+                            if((Car.IsAlive))
+                                Road.FullEmptyRoad[_index + 1, _indexLeftRoadItem] = Road.SpawnItem;
                         }
                         Road.ClearAndWriteEmpty();
+                        Car._speed = Car._speed - 1;
                         Thread.Sleep(Car.Speed);
                     }
                     Road.FullEmptyRoad[_index, _indexLeftRoadItem] = Road.Empty;
@@ -315,7 +325,7 @@ namespace NuniTeam
                     for(;_index < 8;_index++)
                     {
                         Road.FullEmptyRoad[_index, _indexRightRoadItem] = Road.Empty;
-                        if((Road.FullEmptyRoad[_index + 1, _indexRightRoadItem] == Road.Car))
+                        if((Road.FullEmptyRoad[_index + 1, _indexRightRoadItem] == Road.Car) && ((Car.IsAlive)))
                         {
                             if(Road.SpawnItem == Road.DollarOnRoad)
                             {
@@ -330,15 +340,19 @@ namespace NuniTeam
                         }
                         else
                         {
-                            Road.FullEmptyRoad[_index + 1, _indexRightRoadItem] = Road.SpawnItem;
+                            if((Car.IsAlive))
+                                Road.FullEmptyRoad[_index + 1, _indexRightRoadItem] = Road.SpawnItem;
                         }
                         Road.ClearAndWriteEmpty();
+                        Car._speed = Car._speed - 1;
                         Thread.Sleep(Car.Speed);
                     }
                     Road.FullEmptyRoad[_index, _indexRightRoadItem] = Road.Empty;
                     _index = 0;   
                 }
             }
+            while (Car.IsAlive);
+
             
             
         }
